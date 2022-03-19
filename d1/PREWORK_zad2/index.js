@@ -77,6 +77,9 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   // dodawanie elementu listy
+
+  if (input.value.length > 2) {
+
   list.innerHTML += `<li>
     <input type="checkbox">
     ${input.value}
@@ -93,6 +96,9 @@ form.addEventListener("submit", (event) => {
       },
     ])
   );
+  } else {
+    alert("Please corect the value, it should include at least two characters!")
+  }
 
   // czyszczenie pola formularza
   input.value = "";

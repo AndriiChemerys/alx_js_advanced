@@ -3,4 +3,6 @@
 import React from "react"; // JS modules
 import ReactDOM from "react-dom";
 
-ReactDOM.render(<div>Hello world</div>, document.querySelector("#app"));
+import App from "./App/App";
+
+ReactDOM.render(<App />, document.querySelector("#app"));

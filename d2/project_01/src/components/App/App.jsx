@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Todolist from "../Todolist/Todolist";
 
-const todos = [
+const TODO_ARRAY = [
   {
     name: "Wyniesc smieci",
     checked: false,
@@ -25,6 +25,16 @@ const todos = [
 
 const App = () => {
   const [inputValue, setInputValue] = useState("");
+  const [todos, setTodos] = useState(TODO_ARRAY);
+
+  // let todosStorage = JSON.parse(localStorage.getItem("todos"));
+
+  // 1. Obsluga todos z localstorage
+  useEffect(() => {
+    //nullish operator
+    const todosFromLS = JSON.parse(localStorage.getItem("todos") ?? []);
+    setTodos(todosFromLS);
+  }, []);
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -34,7 +44,32 @@ const App = () => {
     e.preventDefault();
     if (inputValue.length <= 2) {
       alert("Alert");
+      // alertMsg();
     }
+
+    const newTodos = [
+      ...todos,
+      {
+        name: inputValue,
+        checked: false,
+      },
+    ];
+
+    setTodos(newTodos);
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+
+    setTodos([
+      ...todos,
+      {
+        name: inputValue,
+        ckecked: false,
+      },
+    ]);
+
+    // const newTodos = todos.concat({
+    //   name: inputValue,
+    //   checked: false,
+    // });
 
     setInputValue("");
   };

@@ -26,6 +26,8 @@ const TODO_ARRAY = [
 const App = () => {
   const [inputValue, setInputValue] = useState("");
   const [todos, setTodos] = useState(TODO_ARRAY);
+  // const [errorMessage, setErrorMessage] = useState("");
+  const [isErrorMessage, setIsErrorMessage] = useState(false);
 
   // let todosStorage = JSON.parse(localStorage.getItem("todos"));
 
@@ -43,8 +45,9 @@ const App = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (inputValue.length <= 2) {
-      alert("Alert");
-      // alertMsg();
+      // alert("Alert");
+      setIsErrorMessage(true);
+      return;
     }
 
     const newTodos = [
@@ -87,6 +90,7 @@ const App = () => {
           onChange={handleInputChange}
         />
         <button type="submit">send todo</button>
+        {isErrorMessage ? <p>Za malo znakow. Minimum 3</p> : null}
       </form>
       <Todolist todoList={todos} />
     </div>

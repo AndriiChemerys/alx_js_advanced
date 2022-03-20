@@ -1,20 +1,9 @@
 import React from "react";
 
-const todos = [
-  {
-    name: "Wyniesc smieci",
-    checked: false,
-  },
-  {
-    name: "Pryjsc na zajecia",
-    checked: true,
-  },
-];
-
-const Todolist = () => (
+const Todolist = (props) => (
   <div>
     <ul>
-      {todos.map((todo, index) => (
+      {props.todoList.map((todo, index) => (
         <li key={index}>{todo.name}</li>
       ))}
     </ul>

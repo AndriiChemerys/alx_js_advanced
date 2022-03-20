@@ -78,26 +78,25 @@ form.addEventListener("submit", (event) => {
 
   // dodawanie elementu listy
 
-  if (input.value.length > 2) {
-
-  list.innerHTML += `<li>
+  if (input.value.length < 2) {
+    alert("Please corect the value, it should include at least two characters!");
+  } else {
+    list.innerHTML += `<li>
     <input type="checkbox">
     ${input.value}
     <button type="button"> X </button>
   </li>`;
 
-  localStorage.setItem(
-    "todos",
-    JSON.stringify([
-      ...todos,
-      {
-        name: input.value,
-        checked: false,
-      },
-    ])
-  );
-  } else {
-    alert("Please corect the value, it should include at least two characters!")
+    localStorage.setItem(
+      "todos",
+      JSON.stringify([
+        ...todos,
+        {
+          name: input.value,
+          checked: false,
+        },
+      ])
+    );
   }
 
   // czyszczenie pola formularza

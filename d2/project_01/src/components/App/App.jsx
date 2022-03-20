@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Todolist from "../Todolist/Todolist";
+import styles from "./App.module.css";
+
+// <p className={styles.error}></p>
 
 const TODO_ARRAY = [
   {
@@ -90,7 +93,7 @@ const App = () => {
           onChange={handleInputChange}
         />
         <button type="submit">send todo</button>
-        {isErrorMessage ? <p>Za malo znakow. Minimum 3</p> : null}
+        {isErrorMessage ? <p className={styles.error}>Za malo znakow. Minimum 3</p> : null}
       </form>
       <Todolist todoList={todos} />
     </div>

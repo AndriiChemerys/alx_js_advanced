@@ -9,7 +9,8 @@ const TodoList = (props) => {
     <ul className={styles.list}>
       {props.todoList.map((todo) => (
         <li key={todo.id}>
-          {todo.name}
+          <input type="checkbox" checked={todo.checked} onChange={() => props.onFinish(todo.id)} />
+          <span className={todo.checked ? styles.completed : ""}>{todo.name}</span>
           <button onClick={() => props.onRemove(todo.id)}>X</button>
         </li>
       ))}

@@ -52,6 +52,13 @@ const App = () => {
     setTodos(todosFromLS);
   }, []);
 
+  /////////////////////////////
+  const saveTodos = (todosToSave) => {
+    setTodos(todosToSave);
+    // todos bedzie jeszcze stare !!
+    localStorage.setItem("todos", JSON.stringify(todos));
+  };
+
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -65,7 +72,7 @@ const App = () => {
       return;
     }
 
-    const newTodos = [
+    const changedTodos = [
       ...todos,
       {
         id: uuidv4(),
@@ -74,29 +81,49 @@ const App = () => {
       },
     ];
 
-    setTodos(newTodos);
-    // todos bedzie jeszcze stare !!
-    localStorage.setItem("todos", JSON.stringify(newTodos));
-
-    // const newTodos = todos.concat({
-    //   name: inputValue,
-    //   checked: false,
-    // });
-
-    // setTodos(newTodos);
+    saveTodos(changedTodos);
+    // wykonaj funkcje handleTaskFinished
+    // funkcja powinna zmieniac wartosc klucza checked tylko dla elementy kliknietego
+    // nowa tablica po tej zmianie zapisz za pomoca funkcji setTodos
 
     // czyszczenie formularza
     setInputValue("");
   };
 
+  const handleTaskFinished = (id) => {
+    console.log(id);
+    // function isCompleted(todo) {
+    //   return todo == "checked";
+    // }
+    // todos.findIndex(isCompleted);
+    // console.log(todos.findIndex(isCompleted));
+
+    const indexOfChangeElement = todos.findIndex((todo) => todo.id === id);
+
+    // sprytne uzycie spread operator zeby zrobic kopie tablicy
+
+    const changedTodos = [...todos];
+
+    //aktualnie klikniety obiekt
+    console.log(todos[indexOfChangeElement]);
+
+    todos[indexOfChangeElement].checked = !todos[indexOfChangeElement].checked;
+    // setTodos(changedTodos);
+    // localStorage.setItem("todos", JSON.stringify(changedTodos));
+
+    saveTodos(changedTodos);
+  };
+
   const handleRemove = (id) => {
-    // console.log(name);
     // usunac element z tablicy
     const filteredTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(filteredTodos);
-    localStorage.setItem("todos", JSON.stringify(filteredTodos));
-    // setTodos(tablicaBezTegoElementu)
+    // setTodos(filteredTodos);
+    // localStorage.setItem("todos", JSON.stringify(filteredTodos));
+    // // setTodos(tablicaBezTegoElementu)
+    saveTodos(filteredTodos);
   };
+
+  console.log(todos);
 
   return (
     <div>
@@ -111,7 +138,7 @@ const App = () => {
         <button type="submit">send todo</button>
         {isErrorMessage ? <p className={styles.error}>Za malo znaków. Minimum 3</p> : null}
       </form>
-      <TodoList todoList={todos} onRemove={handleRemove} />
+      <TodoList todoList={todos} onRemove={handleRemove} onFinish={handleTaskFinished} />
     </div>
   );
 };

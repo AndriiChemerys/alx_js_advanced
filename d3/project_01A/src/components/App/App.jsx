@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import TodoList from "../TodoList/TodoList.jsx";
 
+import { v4 as uuidv4 } from "uuid";
+
 import styles from "./App.module.css";
 
 // ES6 Destructurization
@@ -66,6 +68,7 @@ const App = () => {
     const newTodos = [
       ...todos,
       {
+        id: uuidv4(),
         name: inputValue,
         checked: false,
       },
@@ -86,10 +89,10 @@ const App = () => {
     setInputValue("");
   };
 
-  const handleRemove = (name) => {
+  const handleRemove = (id) => {
     // console.log(name);
     // usunac element z tablicy
-    const filteredTodos = todos.filter((todo) => todo.name !== name);
+    const filteredTodos = todos.filter((todo) => todo.id !== id);
     setTodos(filteredTodos);
     localStorage.setItem("todos", JSON.stringify(filteredTodos));
     // setTodos(tablicaBezTegoElementu)

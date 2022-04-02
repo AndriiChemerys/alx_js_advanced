@@ -7,10 +7,10 @@ const TodoList = (props) => {
 
   return (
     <ul className={styles.list}>
-      {props.todoList.map((todo, index) => (
-        <li key={index}>
+      {props.todoList.map((todo) => (
+        <li key={todo.id}>
           {todo.name}
-          <button onClick={() => props.onRemove(todo.name)}>X</button>
+          <button onClick={() => props.onRemove(todo.id)}>X</button>
         </li>
       ))}
     </ul>

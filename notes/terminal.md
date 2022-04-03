@@ -7,3 +7,5 @@ pwd
 
 git stash
 git stash apply - kiedy wszystko zniknelo po git stash
+
+npm install prettier eslint-plugin-prettier

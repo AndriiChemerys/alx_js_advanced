@@ -46,8 +46,30 @@ const App = () => {
   const [todos, setTodos] = useState([]);
   const [isErrorMessage, setIsErrorMessage] = useState(false);
 
+  //##################################################
+
+  const list = document.querySelector("#list");
+
+  fetch("http://localhost:3003/todos")
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .then((todos) => {
+      // console.log(cars);
+
+      //tutaj sie powinno zadziac dodanie samochodu do HTML
+      todos.forEach((todo) => {
+        list.innerHTML += `<li>${todo.Name}</li>`;
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
   useEffect(() => {
     // nullish operator ?? []
+    //##################################################
     const todosFromLS = JSON.parse(localStorage.getItem("todos")) ?? [];
     setTodos(todosFromLS);
   }, []);
@@ -56,6 +78,7 @@ const App = () => {
   const saveTodos = (todosToSave) => {
     setTodos(todosToSave);
     // todos bedzie jeszcze stare !!
+    //###################################################
     localStorage.setItem("todos", JSON.stringify(todos));
   };
 

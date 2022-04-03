@@ -1,3 +1,7 @@
+ctrl+shift+p 
+
+setting.json:
+
 {
     "editor.tabSize": 2,
     "eslint.run": "onSave",

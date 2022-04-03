@@ -27,11 +27,16 @@ router.get("/:userId", (req, res) => {
   });
 });
 
-// router.post('/', (req, res) => {
-//   // fsp.readFile('data/users.json', 'utf-8').then(console.log);
+router.post("/", (req, res) => {
+  console.log("hello world!");
 
-//   // // users maja pochodzic z pliku
-//   res.send([]);
-// });
+  // 1. Odczytaj zawartosc pliku users.json
+  // 2. Sparsuj to do obiektu js
+  // 3. Uzyj metody push aby dodac obiekt (nadaj mu nowe ID za pomoca uuid)
+  // 4. Zapisz plik do pliku users.json
+  // 5. Zwroc utworzonego usera z jego ID
+
+  res.send([]);
+});
 
 module.exports = router;

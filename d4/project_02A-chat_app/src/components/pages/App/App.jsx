@@ -4,6 +4,7 @@ import { onValue, ref, set } from 'firebase/database';
 import database from 'firebase.js';
 
 import Button from 'components/elements/button/Button';
+import InputGroup from 'components/elements/input-group/InputGroup';
 import styles from './App.module.css';
 
 function App() {
@@ -53,33 +54,24 @@ function App() {
         </ul>
       </div>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="person">
-            Person
-            <input
-              type="text"
-              id="person"
-              value={personInputValue}
-              onChange={handlePersonChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label htmlFor="message">
-            Message
-            <input
-              type="text"
-              id="message"
-              onChange={handleMessageChange}
-              value={messageInputValue}
-            />
-          </label>
-        </div>
-        <button type="submit">Send</button>
+        <InputGroup
+          id="person"
+          type="text"
+          label="Person"
+          handleChange={handlePersonChange}
+          inputValue={personInputValue}
+        />
+        <InputGroup
+          id="message"
+          type="text"
+          label="Message"
+          handleChange={handleMessageChange}
+          inputValue={messageInputValue}
+        />
         {/* Napis send jest specjalnym propsem children */}
         <Button btnType="submit">
-          <i>&#9829; </i>
-          Send
+          <i>&#9829;</i>
+          &nbsp; Send
         </Button>
       </form>
     </div>

@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// import styles from './styles.module.css';
-
 function InputGroup({ id, type, label, handleChange, inputValue }) {
   return (
     <div>

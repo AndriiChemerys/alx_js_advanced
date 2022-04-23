@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Button from 'components/elements/button/Button';
 import InputGroup from 'components/elements/input-group/InputGroup';
+import MainLayout from 'components/layouts/main/Main';
 import { observe, save } from 'services/firebase';
 import styles from './App.module.css';
 
@@ -36,39 +37,41 @@ function App() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <h1>Chat</h1>
-      <div className={styles.chatBox}>
-        <ul>
-          {messages.map((message) => (
-            <li key={message.id}>
-              {message.person} wrote: {message.message}
-            </li>
-          ))}
-        </ul>
+    <MainLayout>
+      <div>
+        <h1>Chat</h1>
+        <div className={styles.chatBox}>
+          <ul>
+            {messages.map((message) => (
+              <li key={message.id}>
+                {message.person} wrote: {message.message}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <InputGroup
+            id="person"
+            type="text"
+            label="Person"
+            handleChange={handlePersonChange}
+            inputValue={personInputValue}
+          />
+          <InputGroup
+            id="message"
+            type="text"
+            label="Message"
+            handleChange={handleMessageChange}
+            inputValue={messageInputValue}
+          />
+          {/* Napis send jest specjalnym propsem children */}
+          <Button btnType="submit">
+            <i>&#8508;</i>
+            Send
+          </Button>
+        </form>
       </div>
-      <form onSubmit={handleSubmit}>
-        <InputGroup
-          id="person"
-          type="text"
-          label="Person"
-          handleChange={handlePersonChange}
-          inputValue={personInputValue}
-        />
-        <InputGroup
-          id="message"
-          type="text"
-          label="Message"
-          handleChange={handleMessageChange}
-          inputValue={messageInputValue}
-        />
-        {/* Napis send jest specjalnym propsem children */}
-        <Button btnType="submit">
-          <i>&#8508;</i>
-          Send
-        </Button>
-      </form>
-    </div>
+    </MainLayout>
   );
 }
 

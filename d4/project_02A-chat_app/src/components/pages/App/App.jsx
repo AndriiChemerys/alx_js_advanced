@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Button from 'components/elements/button/Button';
 import InputGroup from 'components/elements/input-group/InputGroup';
 import Main from 'components/layouts/main/Main';
+
 import { observe, save } from 'services/firebase';
 import styles from './App.module.css';
 
@@ -13,13 +14,13 @@ function App() {
 
   useEffect(() => {
     // funkcja zaawansowana
-    observe('/', setMessages);
+    observe('messages/', setMessages);
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    save('/', {
+    save('messages/', {
       person: personInputValue,
       message: messageInputValue,
     });
@@ -44,12 +45,13 @@ function App() {
           <ul>
             {messages.map((message) => (
               <li key={message.id}>
-                {message.person} wrote: {message.message}
+                <span className={styles.person}>{message.person}</span>
+                <p className={styles.message}>{message.message}</p>
               </li>
             ))}
           </ul>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={styles.form}>
           <InputGroup
             id="person"
             type="text"
@@ -65,10 +67,7 @@ function App() {
             inputValue={messageInputValue}
           />
           {/* Napis send jest specjalnym propsem children */}
-          <Button btnType="submit">
-            <i>&#8508;</i>
-            Send
-          </Button>
+          <Button btnType="submit">Send</Button>
         </form>
       </div>
     </Main>

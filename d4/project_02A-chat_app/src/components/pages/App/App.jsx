@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import Button from 'components/elements/button/Button';
 import InputGroup from 'components/elements/input-group/InputGroup';
-import MainLayout from 'components/layouts/main/Main';
+import Main from 'components/layouts/main/Main';
 import { observe, save } from 'services/firebase';
 import styles from './App.module.css';
 
@@ -37,7 +37,7 @@ function App() {
   };
 
   return (
-    <MainLayout>
+    <Main>
       <div>
         <h1>Chat</h1>
         <div className={styles.chatBox}>
@@ -71,7 +71,7 @@ function App() {
           </Button>
         </form>
       </div>
-    </MainLayout>
+    </Main>
   );
 }
 

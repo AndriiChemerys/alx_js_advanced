@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { onValue, ref, set } from 'firebase/database';
 
-import database from '../../firebase';
+import database from 'firebase.js';
 
+import Button from 'components/elements/button/Button';
 import styles from './App.module.css';
 
 function App() {
@@ -75,6 +76,11 @@ function App() {
           </label>
         </div>
         <button type="submit">Send</button>
+        {/* Napis send jest specjalnym propsem children */}
+        <Button btnType="submit">
+          <i>&#9829; </i>
+          Send
+        </Button>
       </form>
     </div>
   );

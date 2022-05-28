@@ -18,3 +18,8 @@ git add . - dodac wszystko
 git branch - branch
 git push origin master - push to server
 git pull origin master - pull server
+
+NEXT
+
+install pretier
+npm install --save-dev eslint-config-prettier

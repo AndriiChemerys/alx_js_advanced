@@ -4,6 +4,7 @@ import Link from "next/link"
 import fetch from "node-fetch"
 
 import Main from "@/components/layouts/main"
+import { getRepositoriesFromSearch } from "@/helpers/queries"
 
 export default function ResultsPage({ title, results }) {
   console.log(results)
@@ -42,24 +43,7 @@ export default function ResultsPage({ title, results }) {
 }
 
 export async function getServerSideProps(context) {
-  const query = `{
-    search(query: "${context.params.query}", type: REPOSITORY, first: 30) {
-      edges {
-        node {
-          ... on Repository {
-            id
-            name
-            description
-            owner {
-              login
-              avatarUrl
-            }
-            stargazerCount
-          }
-        }
-      }
-    }
-  }`
+  const query = getRepositoriesFromSearch(context.params.query)
 
   const token = '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'
 

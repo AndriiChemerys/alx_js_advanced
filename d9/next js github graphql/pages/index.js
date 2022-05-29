@@ -42,6 +42,9 @@ export default function Home() {
 }
 
 export async function getStaticProps() {
+
+  // zalozmy ze to pochodzi z BE
+  
   const title= translations.title
 
   return {

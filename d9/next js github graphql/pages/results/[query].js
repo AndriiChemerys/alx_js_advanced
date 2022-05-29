@@ -7,7 +7,6 @@ import { getRepositoriesFromSearch } from '@/helpers/queries'
 
 import Main from "@/components/layouts/main"
 
-
 export default function ResultsPage({ title, results }) {
   console.log(results)
   return (
@@ -50,7 +49,6 @@ export async function getServerSideProps(context) {
   try {
     const result = await performGraphQLQuery(query)
     console.log(result)
-
 
     return {
       props: {

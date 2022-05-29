@@ -18,3 +18,12 @@ export const getRepositoriesFromSearch = query => {
     }
   }`
 }
+
+export const getDetails = query => {
+  return `{
+    repository(name: "front-end_portfolio", owner: "AndriiChemerys") {
+      description
+      homepageUrl
+    }
+  }`
+}

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head'
 
+import translations from '@/consts/'
+
 import Main from '@/components/layouts/main'
 
 export default function Home() {
@@ -37,4 +39,14 @@ export default function Home() {
       </div>
     </Main>
   )
+}
+
+export async function getStaticProps() {
+  const title= translations.title
+
+  return {
+    props: {
+      title
+    }
+  }
 }

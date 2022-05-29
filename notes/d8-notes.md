@@ -25,3 +25,4 @@ extenstions - PostCSS language supp
 
 Tailwind CSS IntelliSense - extends
 Tailwind Docs - podpowiada wartosci elementow
+

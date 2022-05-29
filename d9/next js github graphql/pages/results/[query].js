@@ -1,10 +1,12 @@
 import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
-import fetch from "node-fetch"
+
+import performGraphQLQuery from '@/helpers/api';
+import { getRepositoriesFromSearch } from '@/helpers/queries'
 
 import Main from "@/components/layouts/main"
-import { getRepositoriesFromSearch } from "@/helpers/queries"
+
 
 export default function ResultsPage({ title, results }) {
   console.log(results)
@@ -43,33 +45,23 @@ export default function ResultsPage({ title, results }) {
 }
 
 export async function getServerSideProps(context) {
-  const query = getRepositoriesFromSearch(context.params.query)
+  const query = getRepositoriesFromSearch(context.params.query);
 
-  const token = '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'
+  try {
+    const result = await performGraphQLQuery(query)
+    console.log(result)
 
-  return fetch('https://api.github.com/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`
-    },
-    body:JSON.stringify({ query })
-  })
-    .then(response => response.json())
-    .then(result => {
-      return {
-        props: {
-          title: context.params.query,
-          results: result.data.search.edges
-        }
+
+    return {
+      props: {
+        title: context.params.query,
+        results: result.data.search.edges
       }
-    })
-    .catch(() => {
-      return {
-        props: {
-          error: `Cannot perform query with params ${context.params.query}`
-        }
-      }
-    })
+    }
+  } catch(error) {
+    console.log(error);
+    return {
+      props: {}
+    }
+  }
 }
-// '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' - my personal token

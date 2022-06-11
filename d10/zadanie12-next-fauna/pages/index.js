@@ -1,22 +1,12 @@
 import cn from 'classnames'
 import useSWR, { mutate } from 'swr'
 import { listGuestbookEntries } from '@/lib/fauna'
-
 import { useState } from 'react'
+
+import { putEntry } from '@/services/entry'
 import EntryItem from '@/components/EntryItem'
 import EntryForm from '@/components/EntryForm'
 import MainLayout from '@/components/MainLayout'
-
-const ENTRIES_PATH = '/api/entries'
-
-const putEntry = (payload) =>
-  fetch(ENTRIES_PATH, {
-    method: 'POST',
-    body: JSON.stringify(payload),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => (res.ok ? res.json() : Promise.reject(res)))
 
 const useEntriesFlow = ({ initialEntries }) => {
   const { data: entries } = useSWR(ENTRIES_PATH, {
@@ -41,10 +31,9 @@ const Guestbook = ({ entries }) => {
   //   initialEntries,
   // })
 
-  const onSubmit = async() => {
-    await putEntry(entryData)
-    setFinalEntries(finalEntries.concat(entryData))
-    // setFinalEntries([...finalEntries, entryData])
+  const onSubmit = async(entryData) => {
+    const entry = await putEntry(entryData)
+    setFinalEntries([entry, ...finalEntries])
   }
 
   return (
@@ -70,7 +59,7 @@ const Guestbook = ({ entries }) => {
         <EntryForm onSubmit={onSubmit} />
       </div>
       <div className="mt-4 space-y-8 px-2">
-        {entries?.map((entry) => (
+        {finalEntries?.map((entry) => (
           <EntryItem key={entry._id} entry={entry} />
         ))}
       </div>
@@ -86,3 +75,8 @@ export const getStaticProps = async () => ({
 })
 
 export default Guestbook
+
+// 1. Do forma dodac pole Secret Message
+// 2. Niech pole secret message zapisze sie w bazie danych
+// 3. Zrob w Next.js dedykowana strone dla Entry
+// 4. Na dedykowanej stronie dla Entry, pokaz zawartosc pola secret message

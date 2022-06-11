@@ -1,17 +1,23 @@
-import getGuestbookEntry from '@/lib/getGuestbookEntry'
+import { getGuestbookEntry } from '@/lib/fauna'
 import MainLayout from '@/components/MainLayout'
 
 export default function EntryPage({ entry }) {
   return (
     <MainLayout>
-      {console.log(entry)}
+      <div className='rounded'>
+        <h1 className='text-4xl mb-4'>Hidden fields</h1>
+        <p>name: {entry.name}</p>
+        <p>message: {entry.message}</p>
+        <p>Secret Message: {entry.secretMessage}</p>
+      </div>
     </MainLayout>
-
   )
 }
 
-export function getStaticProps(req){
+export async function getServerSideProps(req) {
   return {
-    props:
+    props: {
+      entry:  await getGuestbookEntry(req.params.id)
+    }
   }
 }

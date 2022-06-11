@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import cn from 'classnames'
+
 import SuccessMessage from '@/components/SuccessMessage'
 import ErrorMessage from '@/components/ErrorMessage'
 import LoadingSpinner from '@/components/LoadingSpinner'
@@ -8,6 +9,7 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
   const initial = {
     name: '',
     message: '',
+    secretMessage: ''
   }
   const [values, setValues] = useState(initial)
   const [formState, setFormState] = useState('initial')
@@ -54,7 +56,7 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
         />
         <input
           required
-          className={cn(inputClasses, 'pl-4 pr-32 flex-grow')}
+          className={cn(inputClasses, 'pl-4 pr-32 mr-2 flex-grow')}
           aria-label="Your message"
           placeholder="Your message..."
           value={values.message}
@@ -63,8 +65,8 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
         <input
           required
           className={cn(inputClasses, 'pl-4 pr-32 flex-grow')}
-          aria-label="Your secret"
-          placeholder="Your secret..."
+          aria-label="Your secret message"
+          placeholder="Your secret message..."
           value={values.secretMessage}
           onChange={makeOnChange('secretMessage')}
         />

@@ -3,6 +3,7 @@ import { listGuestbookEntries, createGuestbookEntry } from '@/lib/fauna'
 export default async function handler(req, res) {
   const handlers = {
     GET: async () => {
+
       const entries = await listGuestbookEntries()
 
       res.json(entries)
@@ -10,11 +11,12 @@ export default async function handler(req, res) {
 
     POST: async () => {
       const {
-        body: { name, message },
+        body: { name, message, secretMessage },
       } = req
       const created = await createGuestbookEntry({
         name,
         message,
+        secretMessage,
         createdAt: new Date(),
       })
 

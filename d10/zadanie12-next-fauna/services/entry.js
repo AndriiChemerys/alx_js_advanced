@@ -8,4 +8,3 @@ export const putEntry = (payload) =>
       'Content-Type': 'application/json',
     },
   }).then((res) => (res.ok ? res.json() : Promise.reject(res)))
-

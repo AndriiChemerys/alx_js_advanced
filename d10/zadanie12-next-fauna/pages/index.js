@@ -1,39 +1,20 @@
-import cn from 'classnames'
-import useSWR, { mutate } from 'swr'
-import { listGuestbookEntries } from '@/lib/fauna'
 import { useState } from 'react'
+import cn from 'classnames'
+
+import { listGuestbookEntries } from '@/lib/fauna'
 
 import { putEntry } from '@/services/entry'
+
 import EntryItem from '@/components/EntryItem'
 import EntryForm from '@/components/EntryForm'
 import MainLayout from '@/components/MainLayout'
 
-const useEntriesFlow = ({ initialEntries }) => {
-  const { data: entries } = useSWR(ENTRIES_PATH, {
-    initialData: initialEntries,
-  })
-
-  const onSubmit = async (payload) => {
-    await putEntry(payload)
-    await mutate(ENTRIES_PATH)
-  }
-
-  return {
-    entries,
-    onSubmit,
-  }
-}
-
 const Guestbook = ({ entries }) => {
   const [finalEntries, setFinalEntries] = useState(entries);
-  console.log(entries)
-  // const { entries, onSubmit } = useEntriesFlow({
-  //   initialEntries,
-  // })
 
-  const onSubmit = async(entryData) => {
-    const entry = await putEntry(entryData)
-    setFinalEntries([entry, ...finalEntries])
+  const onSubmit = async (entryData) => {
+    const newEntry = await putEntry(entryData)
+    setFinalEntries([newEntry, ...finalEntries])
   }
 
   return (
@@ -78,5 +59,5 @@ export default Guestbook
 
 // 1. Do forma dodac pole Secret Message
 // 2. Niech pole secret message zapisze sie w bazie danych
-// 3. Zrob w Next.js dedykowana strone dla Entry
+// 3. Zrob w Next.JS dedykowana strone dla Entry
 // 4. Na dedykowanej stronie dla Entry, pokaz zawartosc pola secret message

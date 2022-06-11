@@ -20,7 +20,6 @@ export const listGuestbookEntries = () => {
           name
           message
           createdAt
-          secretMessage
         }
       }
     }
@@ -30,6 +29,27 @@ export const listGuestbookEntries = () => {
     .request(query, { size: 999 })
     .then(({ entries: { data } }) => data)
 }
+
+
+export const getGuestbookEntry = (entryId) => {
+  const query = gql`
+    query findGuestbookEntryByID($id: ID!) {
+      findGuestbookEntryByID(id: $id) {
+        _id
+        _ts
+        name
+        message
+        secretMessage
+        createdAt
+      }
+    }
+  `
+
+  return graphQLClient
+    .request(query, { id: entryId })
+    .then((res) => res.findGuestbookEntryByID)
+}
+
 
 export const createGuestbookEntry = (newEntry) => {
   const mutation = gql`
@@ -45,6 +65,5 @@ export const createGuestbookEntry = (newEntry) => {
     }
   `
 
-  return graphQLClient.request(query, { id })
-  .then(({ entries: { data }}) => data)
+  return graphQLClient.request(mutation, { input: newEntry })
 }

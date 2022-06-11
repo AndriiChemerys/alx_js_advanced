@@ -20,6 +20,7 @@ export const listGuestbookEntries = () => {
           name
           message
           createdAt
+          secretMessage
         }
       }
     }
@@ -39,9 +40,11 @@ export const createGuestbookEntry = (newEntry) => {
         name
         message
         createdAt
+        secretMessage
       }
     }
   `
 
-  return graphQLClient.request(mutation, { input: newEntry })
+  return graphQLClient.request(query, { id })
+  .then(({ entries: { data }}) => data)
 }

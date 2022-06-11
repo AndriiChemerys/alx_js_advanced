@@ -60,6 +60,14 @@ const EntryForm = ({ onSubmit: onSubmitProp }) => {
           value={values.message}
           onChange={makeOnChange('message')}
         />
+        <input
+          required
+          className={cn(inputClasses, 'pl-4 pr-32 flex-grow')}
+          aria-label="Your secret"
+          placeholder="Your secret..."
+          value={values.secretMessage}
+          onChange={makeOnChange('secretMessage')}
+        />
         <button
           className={cn(
             'flex items-center justify-center',
